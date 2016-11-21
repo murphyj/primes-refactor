@@ -3,15 +3,14 @@ package literatePrimes;
 public class PrintPrimes {
 
     public static String print() {
-        final int M = 1000;
-        final int RR = 50;
-        final int CC = 4;
-        final int WW = 10;
+        final int MAX_NUM_PRIMES = 1000;
+        final int ROWS_PER_PAGE = 50;
+        final int COLS_PER_PAGE = 4;
         final int ORDMAX = 30;
-        int[] P = new int[M + 1];
-        int PAGENUMBER;
-        int PAGEOFFSET;
-        int ROWOFFSET;
+        int[] P = new int[MAX_NUM_PRIMES + 1];
+        int pageNumber;
+        int pageOffset;
+        int rowOffset;
         int C;
 
         int J;
@@ -29,7 +28,7 @@ public class PrintPrimes {
         SQUARE = 9;
 
         StringBuffer primesOutput = new StringBuffer();
-        while(K < M) {
+        while(K < MAX_NUM_PRIMES) {
             do {
                 J = J + 2;
                 if (J == SQUARE) {
@@ -53,22 +52,22 @@ public class PrintPrimes {
         }
 
         {
-            PAGENUMBER = 1;
-            PAGEOFFSET = 1;
-            while (PAGEOFFSET <= M) {
-                primesOutput.append("The First " + M +
-                        " Prime Numbers --- Page " + PAGENUMBER);
+            pageNumber = 1;
+            pageOffset = 1;
+            while (pageOffset <= MAX_NUM_PRIMES) {
+                primesOutput.append("The First " + MAX_NUM_PRIMES +
+                        " Prime Numbers --- Page " + pageNumber);
                 primesOutput.append("\n");
-                for (ROWOFFSET = PAGEOFFSET; ROWOFFSET < PAGEOFFSET + RR; ROWOFFSET++) {
-                    for (C = 0; C < CC; C++)
-                        if (ROWOFFSET + C * RR <= M) {
-                            String offset = String.format("%10d", P[ROWOFFSET + C * RR]);
+                for (rowOffset = pageOffset; rowOffset < pageOffset + ROWS_PER_PAGE; rowOffset++) {
+                    for (C = 0; C < COLS_PER_PAGE; C++)
+                        if (rowOffset + C * ROWS_PER_PAGE <= MAX_NUM_PRIMES) {
+                            String offset = String.format("%10d", P[rowOffset + C * ROWS_PER_PAGE]);
                             primesOutput.append(offset);
                         }
                     primesOutput.append("\n");
                 }
-                PAGENUMBER = PAGENUMBER + 1;
-                PAGEOFFSET = PAGEOFFSET + RR * CC;
+                pageNumber = pageNumber + 1;
+                pageOffset = pageOffset + ROWS_PER_PAGE * COLS_PER_PAGE;
             }
         }
         return primesOutput.toString();
