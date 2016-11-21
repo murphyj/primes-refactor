@@ -7,48 +7,48 @@ public class PrintPrimes {
         final int ROWS_PER_PAGE = 50;
         final int COLS_PER_PAGE = 4;
         final int ORDMAX = 30;
-        int[] P = new int[MAX_NUM_PRIMES + 1];
+        int[] primes = new int[MAX_NUM_PRIMES + 1];
         int pageNumber;
         int pageOffset;
         int rowOffset;
-        int C;
+        int currentColumnNum;
 
-        int J;
-        int K;
-        boolean JPRIME;
-        int ORD;
-        int SQUARE;
+        int nextNumber;
+        int currentPrimeNumber;
+        boolean isPrime;
+        int ordinal;
+        int square;
         int N;
-        int MULT[] = new int[ORDMAX + 1];
+        int squares[] = new int[ORDMAX + 1];
 
-        J = 1;
-        K = 1;
-        P[1] = 2;
-        ORD = 2;
-        SQUARE = 9;
+        nextNumber = 1;
+        currentPrimeNumber = 1;
+        primes[1] = 2;
+        ordinal = 2;
+        square = 9;
 
         StringBuffer primesOutput = new StringBuffer();
-        while(K < MAX_NUM_PRIMES) {
+        while(currentPrimeNumber < MAX_NUM_PRIMES) {
             do {
-                J = J + 2;
-                if (J == SQUARE) {
-                    ORD = ORD + 1;
-                    SQUARE = P[ORD] * P[ORD];
-                    MULT[ORD - 1] = J;
+                nextNumber = nextNumber + 2;
+                if (nextNumber == square) {
+                    ordinal = ordinal + 1;
+                    square = primes[ordinal] * primes[ordinal];
+                    squares[ordinal - 1] = nextNumber;
                 }
 
                 N = 2;
-                JPRIME = true;
-                while (N < ORD && JPRIME) {
-                    while (MULT[N] < J)
-                        MULT[N] = MULT[N] + P[N] + P[N];
-                    if (MULT[N] == J)
-                        JPRIME = false;
+                isPrime = true;
+                while (N < ordinal && isPrime) {
+                    while (squares[N] < nextNumber)
+                        squares[N] = squares[N] + primes[N] + primes[N];
+                    if (squares[N] == nextNumber)
+                        isPrime = false;
                     N = N + 1;
                 }
-            } while (!JPRIME);
-            K = K + 1;
-            P[K] = J;
+            } while (!isPrime);
+            currentPrimeNumber = currentPrimeNumber + 1;
+            primes[currentPrimeNumber] = nextNumber;
         }
 
         {
@@ -59,9 +59,9 @@ public class PrintPrimes {
                         " Prime Numbers --- Page " + pageNumber);
                 primesOutput.append("\n");
                 for (rowOffset = pageOffset; rowOffset < pageOffset + ROWS_PER_PAGE; rowOffset++) {
-                    for (C = 0; C < COLS_PER_PAGE; C++)
-                        if (rowOffset + C * ROWS_PER_PAGE <= MAX_NUM_PRIMES) {
-                            String offset = String.format("%10d", P[rowOffset + C * ROWS_PER_PAGE]);
+                    for (currentColumnNum = 0; currentColumnNum < COLS_PER_PAGE; currentColumnNum++)
+                        if (rowOffset + currentColumnNum * ROWS_PER_PAGE <= MAX_NUM_PRIMES) {
+                            String offset = String.format("%10d", primes[rowOffset + currentColumnNum * ROWS_PER_PAGE]);
                             primesOutput.append(offset);
                         }
                     primesOutput.append("\n");
