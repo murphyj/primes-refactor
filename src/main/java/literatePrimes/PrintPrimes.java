@@ -7,7 +7,10 @@ public class PrintPrimes {
         final int ROWS_PER_PAGE = 50;
         final int COLS_PER_PAGE = 4;
         final int ORDMAX = 30;
-        int[] primes = new int[MAX_NUM_PRIMES + 1];
+
+        PrintConfiguration configuration = new PrintConfiguration(MAX_NUM_PRIMES, ROWS_PER_PAGE, COLS_PER_PAGE);
+
+        int[] primes = new int[configuration.getMaxNumPrimes() + 1];
 
         int nextNumber;
         int currentPrimeNumber;
@@ -24,7 +27,7 @@ public class PrintPrimes {
         square = 9;
 
         StringBuffer primesOutput = new StringBuffer();
-        while(currentPrimeNumber < MAX_NUM_PRIMES) {
+        while(currentPrimeNumber < configuration.getMaxNumPrimes()) {
             do {
                 nextNumber = nextNumber + 2;
                 if (nextNumber == square) {
@@ -48,8 +51,8 @@ public class PrintPrimes {
             currentPrimeNumber = currentPrimeNumber + 1;
             primes[currentPrimeNumber] = nextNumber;
         }
-        PrintConfiguration printConfiguration = new PrintConfiguration(MAX_NUM_PRIMES, ROWS_PER_PAGE, COLS_PER_PAGE);
-        return generateOutput(printConfiguration, primes, primesOutput);
+
+        return generateOutput(configuration, primes, primesOutput);
     }
 
     private static String generateOutput(PrintConfiguration configuration, int[] primes, StringBuffer primesOutput) {
@@ -61,8 +64,7 @@ public class PrintPrimes {
         pageOffset = 1;
 
         while (pageOffset <= configuration.getMaxNumPrimes()) {
-            primesOutput.append("The First " + configuration.getMaxNumPrimes() +
-                    " Prime Numbers --- Page " + pageNumber);
+            primesOutput.append("The First " + configuration.getMaxNumPrimes() + " Prime Numbers --- Page " + pageNumber);
             primesOutput.append("\n");
             for (rowOffset = pageOffset; rowOffset < pageOffset + configuration.getRowsPerPage(); rowOffset++) {
                 for (currentColumnNum = 0; currentColumnNum < configuration.getColsPerPage(); currentColumnNum++)
