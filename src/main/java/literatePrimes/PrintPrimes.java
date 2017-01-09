@@ -18,7 +18,7 @@ public class PrintPrimes {
         boolean isPrime;
         int ordinal;
         int square;
-        int N;
+        int primeNumber;
         int squares[] = new int[ORDMAX + 1];
 
         nextNumber = 1;
@@ -37,16 +37,16 @@ public class PrintPrimes {
                     squares[ordinal - 1] = nextNumber;
                 }
 
-                N = 2;
+                primeNumber = 2;
                 isPrime = true;
-                while (N < ordinal && isPrime) {
-                    while (squares[N] < nextNumber) {
-                        squares[N] = squares[N] + primes[N] + primes[N];
+                while (primeNumber < ordinal && isPrime) {
+                    while (squares[primeNumber] < nextNumber) {
+                        squares[primeNumber] = squares[primeNumber] + primes[primeNumber] + primes[primeNumber];
                     }
-                    if (squares[N] == nextNumber) {
+                    if (squares[primeNumber] == nextNumber) {
                         isPrime = false;
                     }
-                    N = N + 1;
+                    primeNumber = primeNumber + 1;
                 }
             } while (!isPrime);
             currentPrimeNumber = currentPrimeNumber + 1;
