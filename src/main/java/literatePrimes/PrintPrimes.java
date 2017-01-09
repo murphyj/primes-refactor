@@ -53,24 +53,30 @@ public class PrintPrimes {
             primes[currentPrimeNumber] = nextNumber;
         }
 
-        {
-            pageNumber = 1;
-            pageOffset = 1;
-            while (pageOffset <= MAX_NUM_PRIMES) {
-                primesOutput.append("The First " + MAX_NUM_PRIMES +
-                        " Prime Numbers --- Page " + pageNumber);
+        return generateOutput(MAX_NUM_PRIMES, ROWS_PER_PAGE, COLS_PER_PAGE, primes, primesOutput);
+    }
+
+    private static String generateOutput(int MAX_NUM_PRIMES, int ROWS_PER_PAGE, int COLS_PER_PAGE, int[] primes, StringBuffer primesOutput) {
+        int pageNumber;
+        int pageOffset;
+        int rowOffset;
+        int currentColumnNum;
+        pageNumber = 1;
+        pageOffset = 1;
+        while (pageOffset <= MAX_NUM_PRIMES) {
+            primesOutput.append("The First " + MAX_NUM_PRIMES +
+                    " Prime Numbers --- Page " + pageNumber);
+            primesOutput.append("\n");
+            for (rowOffset = pageOffset; rowOffset < pageOffset + ROWS_PER_PAGE; rowOffset++) {
+                for (currentColumnNum = 0; currentColumnNum < COLS_PER_PAGE; currentColumnNum++)
+                    if (rowOffset + currentColumnNum * ROWS_PER_PAGE <= MAX_NUM_PRIMES) {
+                        String offset = String.format("%10d", primes[rowOffset + currentColumnNum * ROWS_PER_PAGE]);
+                        primesOutput.append(offset);
+                    }
                 primesOutput.append("\n");
-                for (rowOffset = pageOffset; rowOffset < pageOffset + ROWS_PER_PAGE; rowOffset++) {
-                    for (currentColumnNum = 0; currentColumnNum < COLS_PER_PAGE; currentColumnNum++)
-                        if (rowOffset + currentColumnNum * ROWS_PER_PAGE <= MAX_NUM_PRIMES) {
-                            String offset = String.format("%10d", primes[rowOffset + currentColumnNum * ROWS_PER_PAGE]);
-                            primesOutput.append(offset);
-                        }
-                    primesOutput.append("\n");
-                }
-                pageNumber = pageNumber + 1;
-                pageOffset = pageOffset + ROWS_PER_PAGE * COLS_PER_PAGE;
             }
+            pageNumber = pageNumber + 1;
+            pageOffset = pageOffset + ROWS_PER_PAGE * COLS_PER_PAGE;
         }
         return primesOutput.toString();
     }
