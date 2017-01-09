@@ -40,10 +40,12 @@ public class PrintPrimes {
                 N = 2;
                 isPrime = true;
                 while (N < ordinal && isPrime) {
-                    while (squares[N] < nextNumber)
+                    while (squares[N] < nextNumber) {
                         squares[N] = squares[N] + primes[N] + primes[N];
-                    if (squares[N] == nextNumber)
+                    }
+                    if (squares[N] == nextNumber) {
                         isPrime = false;
+                    }
                     N = N + 1;
                 }
             } while (!isPrime);
