@@ -8,10 +8,6 @@ public class PrintPrimes {
         final int COLS_PER_PAGE = 4;
         final int ORDMAX = 30;
         int[] primes = new int[MAX_NUM_PRIMES + 1];
-        int pageNumber;
-        int pageOffset;
-        int rowOffset;
-        int currentColumnNum;
 
         int nextNumber;
         int currentPrimeNumber;
@@ -52,31 +48,32 @@ public class PrintPrimes {
             currentPrimeNumber = currentPrimeNumber + 1;
             primes[currentPrimeNumber] = nextNumber;
         }
-
-        return generateOutput(MAX_NUM_PRIMES, ROWS_PER_PAGE, COLS_PER_PAGE, primes, primesOutput);
+        PrintConfiguration printConfiguration = new PrintConfiguration(MAX_NUM_PRIMES, ROWS_PER_PAGE, COLS_PER_PAGE);
+        return generateOutput(printConfiguration, primes, primesOutput);
     }
 
-    private static String generateOutput(int MAX_NUM_PRIMES, int ROWS_PER_PAGE, int COLS_PER_PAGE, int[] primes, StringBuffer primesOutput) {
+    private static String generateOutput(PrintConfiguration configuration, int[] primes, StringBuffer primesOutput) {
         int pageNumber;
         int pageOffset;
         int rowOffset;
         int currentColumnNum;
         pageNumber = 1;
         pageOffset = 1;
-        while (pageOffset <= MAX_NUM_PRIMES) {
-            primesOutput.append("The First " + MAX_NUM_PRIMES +
+
+        while (pageOffset <= configuration.getMaxNumPrimes()) {
+            primesOutput.append("The First " + configuration.getMaxNumPrimes() +
                     " Prime Numbers --- Page " + pageNumber);
             primesOutput.append("\n");
-            for (rowOffset = pageOffset; rowOffset < pageOffset + ROWS_PER_PAGE; rowOffset++) {
-                for (currentColumnNum = 0; currentColumnNum < COLS_PER_PAGE; currentColumnNum++)
-                    if (rowOffset + currentColumnNum * ROWS_PER_PAGE <= MAX_NUM_PRIMES) {
-                        String offset = String.format("%10d", primes[rowOffset + currentColumnNum * ROWS_PER_PAGE]);
+            for (rowOffset = pageOffset; rowOffset < pageOffset + configuration.getRowsPerPage(); rowOffset++) {
+                for (currentColumnNum = 0; currentColumnNum < configuration.getColsPerPage(); currentColumnNum++)
+                    if (rowOffset + currentColumnNum * configuration.getRowsPerPage() <= configuration.getMaxNumPrimes()) {
+                        String offset = String.format("%10d", primes[rowOffset + currentColumnNum * configuration.getRowsPerPage()]);
                         primesOutput.append(offset);
                     }
                 primesOutput.append("\n");
             }
             pageNumber = pageNumber + 1;
-            pageOffset = pageOffset + ROWS_PER_PAGE * COLS_PER_PAGE;
+            pageOffset = pageOffset + configuration.getRowsPerPage() * configuration.getColsPerPage();
         }
         return primesOutput.toString();
     }
