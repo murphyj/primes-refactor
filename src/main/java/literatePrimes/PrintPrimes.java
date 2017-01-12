@@ -6,7 +6,7 @@ public class PrintPrimes {
         final int MAX_NUM_PRIMES = 1000;
         final int ROWS_PER_PAGE = 50;
         final int COLS_PER_PAGE = 4;
-        final int ORDMAX = 30;
+        final int MAX_ORDINAL = 30;
 
         PrintConfiguration configuration = new PrintConfiguration(MAX_NUM_PRIMES, ROWS_PER_PAGE, COLS_PER_PAGE);
 
@@ -18,7 +18,7 @@ public class PrintPrimes {
         int ordinal;
         int square;
         int primeNumber;
-        int squares[] = new int[ORDMAX + 1];
+        int squares[] = new int[MAX_ORDINAL + 1];
 
         nextNumber = 1;
         currentPrimeNumber = 1;
