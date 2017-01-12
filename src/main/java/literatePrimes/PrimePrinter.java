@@ -2,7 +2,9 @@ package literatePrimes;
 
 public class PrimePrinter {
 
-    public static String generateOutput(PrintConfiguration configuration, int[] primes, StringBuffer primesOutput) {
+    public static String generateOutput(PrintConfiguration configuration, int[] primes) {
+        StringBuffer primesOutput = new StringBuffer();
+
         int pageNumber;
         int pageOffset;
         int rowOffset;

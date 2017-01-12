@@ -26,7 +26,6 @@ public class PrintPrimes {
         ordinal = 2;
         square = 9;
 
-        StringBuffer primesOutput = new StringBuffer();
         while(currentPrimeNumber < configuration.getMaxNumPrimes()) {
             do {
                 nextNumber = nextNumber + 2;
@@ -52,6 +51,6 @@ public class PrintPrimes {
             primes[currentPrimeNumber] = nextNumber;
         }
 
-        return PrimePrinter.generateOutput(configuration, primes, primesOutput);
+        return PrimePrinter.generateOutput(configuration, primes);
     }
 }
